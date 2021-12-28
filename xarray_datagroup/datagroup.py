@@ -10,14 +10,14 @@ from . import store
 # - no dims, DataArrays may have incompatible dimensions
 # - coords are the Coordinate variables contained in the path, DataArrays may have coordinates contained
 #   in other groups
-class DataGroup(T.Protocol):
+class DataGroup:
     attrs: T.MutableMapping[T.Hashable, T.Any]
-    groups: T.MutableMapping[T.Hashable, DataGroup]
     data_vars: T.MutableMapping[T.Hashable, xr.DataArray]
-    coord_vars: T.Mapping[T.Hashable, xr.DataArray]
-    aux_vars: T.Mapping[T.Hashable, xr.DataArray]
+    coords: T.MutableMapping[T.Hashable, xr.DataArray]
 
-    parent: DataGroup
+    parent: DataGroup | None
+    groups: T.MutableMapping[T.Hashable, DataGroup]
+
     path: store.StorePath
 
     def tree(self) -> str:

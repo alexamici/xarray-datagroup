@@ -32,7 +32,7 @@ serves the same function as `xr.Dataset` and supersedes it.
         ├── data_1 - DataArray {/time: 10, lat: 4, lon: 8} float64
         └── data_2 - DataArray {/time: 10, lat: 4, lon: 8} float64
 
->>> dg.tree(cood_vars=True)
+>>> dg.tree(show_coods=True)
 / - DataGroup
 ├── time - DataArray {time: 10} float64
 ├── lat - DataArray {lat: 16} float64
@@ -66,3 +66,37 @@ serves the same function as `xr.Dataset` and supersedes it.
 ...
 
 ```
+
+For a flat netCDF file with the data in the root group the `DataGroup` has the same structure as the
+`xr.Dataset`:
+
+```python-repl
+>>> dg_flat = xarray_datagroup("flat-data.nc")
+>>> dg_flat.tree(show_coods=True)
+/ - DataGroup
+├── time - DataArray {time: 10} float64
+├── lat - DataArray {lat: 16} float64
+├── lon - DataArray {lon: 32} float64
+├── quality_flag_lat - DataArray {quality_flag_lat: 2} float64
+├── quality_flag_lon - DataArray {quality_flag_lon: 4} float64
+├── data_1 - DataArray {time: 10, lat: 16, lon: 32} float64
+├── data_2 - DataArray {time: 10, lat: 16, lon: 32} float64
+├── quality_flag - DataArray {quality_flag_lat: 2, quality_flag_lon: 4} int8
+├── standard_error_1 - DataArray {time: 10, lat: 16, lon: 32} float64
+└── standard_error_2 - DataArray {time: 10, lat: 16, lon: 32} float64
+
+```
+
+Main similarities are:
+
+- `.data_vars`, `.coords` and `.attrs` attributes behave the same
+
+Main differences are:
+
+- additional `.path`, `.parent` / `.groups` attributes for tree navigation
+- no `dims` - `DataArray`'s in a `DataGroup` may have incompatible dimensions
+- the `coords` mapping contains the coordinate variables defined in the `DataGroup`, 
+  not the coordinates of the contained data variables -
+  `DataArray`'s in a `DataGroup` may have incompatible coordinates with the same name,
+  as long as they are defined in a different `DataGroup`
+- a `DataArray` may reference coordinate, auxiliary and ancillary variables in any `DataGroup`s
