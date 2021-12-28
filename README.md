@@ -7,3 +7,5 @@ Assumptions:
 
 Data is represented as `DataGroup`s and `xr.DataArray`s, so the `DataGroup` class
 serves the same function as `xr.Dataset` and supersedes it.
+
+`xr.Variable`s needs an additional `path` attribute.
