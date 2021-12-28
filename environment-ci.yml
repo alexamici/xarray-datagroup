@@ -1,0 +1,11 @@
+channels:
+  - defaults
+dependencies:
+  - black
+  - flake8
+  - isort
+  - h5netcdf
+  - mypy
+  - pytest
+  - pytest-cov
+  - xarray
