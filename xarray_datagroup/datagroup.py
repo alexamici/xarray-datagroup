@@ -14,7 +14,11 @@ class DataGroup(T.Protocol):
     attrs: T.MutableMapping[T.Hashable, T.Any]
     groups: T.MutableMapping[T.Hashable, DataGroup]
     data_vars: T.MutableMapping[T.Hashable, xr.DataArray]
-    data_coords: T.Mapping[T.Hashable, xr.DataArray]
+    coord_vars: T.Mapping[T.Hashable, xr.DataArray]
+    aux_vars: T.Mapping[T.Hashable, xr.DataArray]
 
     parent: DataGroup
     path: store.StorePath
+
+    def tree(self) -> str:
+        pass
