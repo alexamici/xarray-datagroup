@@ -31,6 +31,7 @@ serves the same function as `xr.Dataset` and supersedes it.
     └── x4 - DataGroup
         ├── data_1 - DataArray {/time: 10, lat: 4, lon: 8} float64
         └── data_2 - DataArray {/time: 10, lat: 4, lon: 8} float64
+
 >>> dg.tree(cood_vars=True)
 / - DataGroup
 ├── time - DataArray {time: 10} float64
@@ -55,4 +56,13 @@ serves the same function as `xr.Dataset` and supersedes it.
         ├── lon - DataArray {lon: 8} float64
         ├── data_1 - DataArray {/time: 10, lat: 4, lon: 8} float64
         └── data_2 - DataArray {/time: 10, lat: 4, lon: 8} float64
+
+>>> dg.data_vars["data_1"]
+<xarray.DataArray 'data_1' (time: 10, lat: 16, lon: 32)>
+...
+
+>>> dg.get("metadata/quality_flag")  # better name? `.traverse()`?
+<xarray.DataArray 'quality_flag' (lat: 2, lon: 4)>
+...
+
 ```

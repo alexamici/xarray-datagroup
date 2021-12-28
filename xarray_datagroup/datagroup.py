@@ -21,4 +21,7 @@ class DataGroup(T.Protocol):
     path: store.StorePath
 
     def tree(self) -> str:
-        pass
+        ...
+
+    def get(self, item) -> T.Union[DataGroup, xr.DataArray]:
+        ...
