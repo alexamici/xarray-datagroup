@@ -93,7 +93,7 @@ Main similarities are:
 
 Main differences are:
 
-- additional `.path`, `.parent` / `.groups` attributes for tree navigation
+- additional `.groups` attribute for tree traversal
 - no `dims` - `DataArray`'s in a `DataGroup` may have incompatible dimensions
 - the `coords` mapping contains the coordinate variables defined in the `DataGroup`, 
   not the coordinates of the contained data variables -
